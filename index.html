@@ -164,6 +164,10 @@ body:not(:has(.editor-toolbar)) { padding-bottom: 0; }
 .project-story-title { margin: 8px 0 0; font-size: 23px; font-weight: 600; line-height: 1.5; letter-spacing: -1px; }
 @media screen and (max-width:760px) { .project-name-row { flex-direction: column; gap: 7px; } .project-top .project-name { font-size: 22px; } .project-top .project-number { font-size: 13px; } .project-story-title { font-size: 20px; } }
 
+/* Match project numbers to the project-name typography. */
+.project-top .project-number { font-size: 27px; font-weight: 700; line-height: 1.5; letter-spacing: -.6px; }
+@media screen and (max-width:760px) { .project-top .project-number { font-size: 22px; } }
+
 </style></head>
 <body>
 <header><a class="brand" href="#home"><span data-content="profile.name" class="brand-name"></span><span data-content="profile.brand"></span></a><nav aria-label="주요 메뉴"><a href="#about" data-content="navigation.about"></a><a href="#works" data-content="navigation.works"></a><a href="#contact" data-content="navigation.contact"></a></nav><button class="print" type="button" data-content="navigation.print"></button></header>
