@@ -155,6 +155,15 @@ body:not(:has(.editor-toolbar)) { padding-bottom: 0; }
 }
 @media screen and (min-width: 761px) { .viewer-size-toggle { display: none; } }
 
+/* Project identity is prominent beside its number. */
+.project-top { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 24px; }
+.project-name-row { display: flex; align-items: baseline; gap: 22px; }
+.project-top .project-number { font-size: 13px; font-weight: 700; letter-spacing: 1px; flex-shrink: 0; }
+.project-top .project-name { margin: 0; font-size: 27px; font-weight: 700; line-height: 1.5; letter-spacing: -.6px; overflow-wrap: anywhere; }
+.project-tag { font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+.project-story-title { margin: 8px 0 0; font-size: 23px; font-weight: 600; line-height: 1.5; letter-spacing: -1px; }
+@media screen and (max-width:760px) { .project-name-row { flex-direction: column; gap: 7px; } .project-top .project-name { font-size: 22px; } .project-top .project-number { font-size: 13px; } .project-story-title { font-size: 20px; } }
+
 </style></head>
 <body>
 <header><a class="brand" href="#home"><span data-content="profile.name" class="brand-name"></span><span data-content="profile.brand"></span></a><nav aria-label="주요 메뉴"><a href="#about" data-content="navigation.about"></a><a href="#works" data-content="navigation.works"></a><a href="#contact" data-content="navigation.contact"></a></nav><button class="print" type="button" data-content="navigation.print"></button></header>
@@ -469,9 +478,9 @@ document.querySelector('#project-list').innerHTML = projects.map((project, index
   const image = safeUrl(project.image, true);
   const url = safeUrl(project.url);
   return `<article class="project" id="project-${anchor}">
-    <div class="project-top"><span>${text(labels.project)} ${number(index)}</span><span>${text(project.tag)}</span></div>
+    <div class="project-top"><div class="project-name-row"><span class="project-number">${text(labels.project)} ${number(index)}</span><h3 class="project-name">${text(project.subtitle)}</h3></div><span class="project-tag">${text(project.tag)}</span></div>
     <div class="project-visual" role="img" aria-label="${text(project.subtitle + labels.flowSuffix)}"><span class="visual-number">${number(index)}</span><div class="flow">${project.visual.map((item, i) => `<div>${text(item)}</div>${i < project.visual.length - 1 ? '<span>↓</span>' : ''}`).join('')}</div><span class="visual-caption">${text(labels.process)} / ${text(project.tag)}</span></div>
-    <div class="project-heading"><div><p class="eyebrow">${text(project.subtitle)}</p><h3>${text(project.title)}</h3></div><a href="#detail-${anchor}" class="detail-link" data-open="detail-${anchor}">${text(labels.caseStudy)}</a></div>
+    <div class="project-heading"><div><h4 class="project-story-title">${text(project.title)}</h4></div><a href="#detail-${anchor}" class="detail-link" data-open="detail-${anchor}">${text(labels.caseStudy)}</a></div>
     <div class="project-meta"><div class="meta-role"><span class="meta-label">${text(labels.role)}</span><p>${text(project.role)}</p></div><div class="meta-result"><span class="meta-label">${text(labels.metric)}</span><p>${text(project.metricLabel)}</p><strong>${text(project.metric)}</strong></div></div>
     <details open id="detail-${anchor}"><summary><div class="story-prompt"><strong class="story-open">${text(labels.readStory)}</strong><strong class="story-close">${text(labels.closeStory)}</strong></div><span class="story-icon" aria-hidden="true">＋</span></summary><div class="case-content">
     ${steps.map((key, i) => `<section class="case-step"><div><span>${number(i)}</span><h4>${text(labels[key])}</h4></div><div>${key === 'execution' ? `<ol>${project.execution.map(item => `<li>${text(item)}</li>`).join('')}</ol>` : `<p>${text(project[key])}</p>`}${renderEvidence((project.evidence || []).filter(item => item.stage === key))}</div></section>`).join('')}
